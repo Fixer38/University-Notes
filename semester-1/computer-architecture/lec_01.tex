@@ -1,0 +1,170 @@
+\chapter{Concepts de base}
+\lecture{1}{Mardi 17 September 2019 8:30}{Instructions et registre}
+\section{Instructions}
+\begin{enumerate}
+\item Une série d'instructions arrivent au cœur de l'ordinateur.
+Traitées par le cpu pour avoir un résultat.
+Exemple:
+\begin{itemize}
+  \item 1. Instruction: addition
+  \item 2. Données: 1 et 2 
+  \item 3. Résultat: 3
+\end{itemize}
+\textbf{Notion de flux continu}
+
+\item Explications exemple: 
+\begin{itemize}
+  \item 1. Lire les nombres
+  \item 2. Modifier les nombres
+  \item 3. Écrire les nombres
+\end{itemize}
+Conséquence sur le design des composants -> Accélérer les actions.\bigskip
+
+\item En détails:
+\begin{itemize}
+  \item1. Lecture/Écriture -> nécessite une zone modifiable pour le stockage des données
+
+  \item2. Modifier -> Nécessite une ALU pour modifier les données. Celle-ci faisant partie du CPU.
+Partie du CPU qui execute le calcul.
+
+ \item 3. Manipuler les données -> nécessite un chemin, les bus.
+ \begin{itemize}
+    \item 1. Data Bus -> ensemble des fils qui traitent les données.
+    \item 2. Instruction bus -> ensemble des fils qui transportent les instructions.
+  L'ensemble des fils -> bus.
+  \end{itemize}
+  \item 4. Résultat -> les données résultantes vont être renvoyées dans la zone mémoire. (écrire)
+\end{itemize}
+\end{enumerate}
+\section{Registres}
+\begin{enumerate}
+\item Exemple de réflexion architecturale: 
+Les registres proches de l'ALU ont de meilleurs performances dans le traitement de données. -> Registres internes au CPU.
+Registre -> petit espace de stockage, rapide incorporé au CPU.
+
+\bigskip
+\item Exemple de l'addition: A+B=C
+\begin{itemize}
+  \item 1. Obtenir depuis les registres sources (A et B)
+  \item 2. Additionner les nombres.
+  \item 3. Placer le résultat dans le registre de destination (C) -> Écrase ce qui se trouvait dans le registre(0 et 1) -> les registres ne sont jamais vides.
+\end{itemize}
+\item{\textbf{La mémoire RAM}}
+\begin{itemize}
+  \item 1. Les registres sont petits -> contiennent peu de données.
+  \item 2. Données utiles -> déplacées vers les registres(accumulateur).
+  \item 3. Le reste -> dans \textbf{main memory} composée de mémoire de type \textbf{RAM(Random access memory) -> Accès RW(Lecture/Écriture)}, supprimée si plus de courant, besoin de \textbf{rafraichir la mémoire} pour garder les infos.).
+  \item \textbf{RAM statique} -> conserve la info sans rafraichissement.
+\end{itemize}
+Schema: Main memory: Instructions + données(lire)
+CPU = ALU + registres (modifier) in memory bus
+Écrire: Résultat -> données in main memory
+
+\item Exemple Addition: A+B=C
+\begin{itemize}
+  \item1. Charger les deux opérandes (A et B) depuis la mémoire centrale (main memory) vers deux registres sources.
+
+  \item 2. Additionner:
+  \begin{itemize}
+    \item a. Lire le contenu des registres A et B
+    \item b. Additionner les contenus des registres A et B
+    \item c. Écrire le résultat dans le registre C
+  \end{itemize}
+\end{itemize}
+\item \textbf{Le programme: code stream}
+Le code -> série d'instructions de commandes qui dépend du type de CPU(X86, ARM...) -> précise ce que la machine doit faire. -> exemple: Entrée reset.
+
+Exemple: 
+\begin{itemize}
+  \item1. Instruction \textbf{load} pour charger les nombres depuis la mémoire vers les registres
+  \item 2. Instruction \textbf{add} pour que le ALU réalise l'addition.
+  \item 3. Instruction \textbf{store} pour que l'ordinateur place le résultat en mémoire.
+\end{itemize}
+\item \textbf{Catégorie d'instructions}
+\begin{itemize}
+  \item 1. Arithmétique: add, sub, mul, div
+  \item 2. Accès mémoire: load, store
+  \item 3. Branchement (jump)
+  \item 4. Logique (conditions): and, or, not
+\end{itemize}
+\item \textbf{Architecture basique et format d'instructions}
+Basé sur une machine fictive: \textbf{AR1} composé de:
+\begin{itemize}
+  \item 1. 1 ALU
+  \item 2. 4 registres: A, B, C, D
+  \item 3. 256 cellules mémoires addressable de 0 à 255
+\end{itemize}
+\begin{enumerate}
+\item \textbf{Format des instructions:} 
+\begin{lstlisting}
+instruction source1, source2, destination
+\end{lstlisting}
+Exemple: 
+\begin{lstlisting}
+add A, B, C 
+#Passage dans le compilateur transforme les nbs binaires.
+\end{lstlisting}
+\item \textbf{Format des instructions d'accès mémoire}
+\begin{lstlisting}
+Instruction source, destination
+#exemple:
+load \#12, A
+#exemple d'un programme:
+load \#12, A
+load \#13, B
+add A, B, C
+store C, \#14
+#Les donnees en source ne changent pas.
+\end{lstlisting}
+\item Limites de l'exemple: 
+Comment connaitre le contenu des cellules \#12 et \#13.
+\end{enumerate}
+\item \textbf{Valeurs immédiates et jeux sur les addresses}
+\begin{enumerate}
+\item Utilisation d'une valeur à la place d'une adresse.
+\begin{lstlisting}
+add, A, 2, A 
+# Ajouter la valeur 2 au contenu du registre A et ecrire le result dans A (en ecrasant ce qui s'y trouvait)
+#Utilisation du symbole # pour aller chercher une adresse.
+\end{lstlisting}
+\item 2ème programme (utilisation de D sans savoir sa valeur):
+\begin{lstlisting}
+load #D, A ;Contenu de #D = 12 dans A
+load #13, B ;Contenu de la cellule 13 dans B
+add A, B, C ;Add A+B -> result dans C
+store C, #14 ;Stocker C dans cellule 14
+\end{lstlisting}
+\item 3ème programme:
+\begin{lstlisting}
+load #11, D ;Contenu de la cellule 11 dans D(pointeur)
+load #D, A ;Contenu de la cellule D dans A (cellule 11) 
+load #13, B ;Contenu de la cellule 13 dans B
+add A, B, C ;Add A+B -> result dans C 
+store C, #14 ;Stocker C dans cellule 14
+\end{lstlisting}
+\end{enumerate}
+\item Résumé:
+\begin{itemize}
+  \item1. Mettre une valeur dans un registre
+  \item2. Récupérer cette valeur en tant qu'adresse de cellule mémoire.
+  \item3. Lire le contenu de cette cellule.
+  \item4. Charger ce contenu dans un registre.
+  \item5. La mémoire est divisée en segments(bits consécutifs):
+  \begin{itemize}
+    \item1. Certains stockent des données.
+    \item2. D'autres stockent du code.
+  \end{itemize}
+\end{itemize}
+\item\textbf{Adressage relatif = adresse de base + offset}
+Exemples:
+\begin{lstlisting}
+load #(D+108), A
+store B, #(D+108)
+\end{lstlisting}
+\item \textbf{Les adresses mémoires et les nombres entiers}: sont stockés dans les mêmes registres appelés: \textbf{general purpose registers(GPRs)}
+
+AR1: A,B,C,D = GPRs.
+\item \textbf{Autres registres:}
+Registre de \textbf{statut \& registre de contrôle}.
+
+Schema + bus de contrôle, tout est addressable.
