@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.16)  19 SEP 2019 14:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.16)  23 SEP 2019 07:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1492,11 +1492,11 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 ]
 Chapitre 1.
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 3.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 2.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Overfull \hbox (24.38292pt too wide) in paragraph at lines 3--3
+Overfull \hbox (68.07364pt too wide) in paragraph at lines 2--2
 [][] 
  []
 
@@ -1510,15 +1510,15 @@ Chapitre 2.
 Here is how much of TeX's memory you used:
  31077 strings out of 494894
  598723 string characters out of 6179473
- 633537 words of memory out of 5000000
+ 633536 words of memory out of 5000000
  33870 multiletter control sequences out of 15000+600000
  553151 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  64i,11n,73p,10457b,423s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0900.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
-Output written on master.pdf (5 pages, 71088 bytes).
+Output written on master.pdf (5 pages, 74109 bytes).
 PDF statistics:
- 278 PDF objects out of 1000 (max. 8388607)
+ 288 PDF objects out of 1000 (max. 8388607)
  51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)

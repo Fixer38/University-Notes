@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1568897108 "master.tex" "master.pdf" "master" 1568897109
+["pdflatex"] 1569216845 "master.tex" "master.pdf" "master" 1569216846
   "../preamble.tex" 1568713193 7252 d276f5a234761efca4e714d53dae9710 ""
   "/etc/texmf/web2c/texmf.cnf" 1557253316 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fixer/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk" 1568660527 25396 cefee0eaf22da3f998c6d2bcbf3756ee ""
@@ -236,12 +236,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1568658395 36788 a2a8978005b6517f328502cbc09692d9 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1568658396 748525 da97ed56224caaa08657b75c10e4e037 ""
-  "lec_01.tex" 1568897107 2797 bade2ba8f31e058fca129c20025493dc ""
-  "master.aux" 1568897109 1311 074e7c1c994e9a0f18c151f0df48d3ad ""
+  "lec_01.tex" 1569216844 2797 97742a43b929210443aee463c6622ebe ""
+  "master.aux" 1569216846 1324 5f4c0a7b3e341c95ec1c1558d6185078 ""
   "master.tex" 1568888276 360 c8ec68c56f6ac570672379cf8401d0d2 ""
-  "master.toc" 1568897109 763 22f78896755b70622be48d18188eb77e ""
+  "master.toc" 1569216846 776 1d95204dd11b7fc83a28e151e098e93d ""
   (generated)
-  "master.log"
   "master.aux"
-  "master.toc"
   "master.pdf"
+  "master.log"
+  "master.toc"
