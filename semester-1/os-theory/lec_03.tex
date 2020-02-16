@@ -1,0 +1,144 @@
+\chapter{Processus et threads}
+\lecture{3}{Lundi 14 Octobre 2019 8:30}{Processus et threads}
+\section{Processus}
+Le premier processus lancé est l'OS
+Chaque programme lancé est un processus
+
+\subsection{Les processus}
+\begin{enumerate}
+  \item Programme = ligne de code, il a des variables propres à lui, des appels aux fonctions, son contexte
+  \item L'OS va donner le contexte au programme et toutes ses variables qui vont avec
+  \item Processus = code en exécution
+\end{enumerate}
+
+\subsection{Types de processus}
+\begin{enumerate}
+  \item Les processus qui tournent en background
+  \item Les programmes interactifs
+\end{enumerate}
+
+\subsection{Création des processus}
+\begin{enumerate}
+  \item Initialisation système
+  \item Processus parent
+  \item Requête
+  \item Batch -> processus qui a peu d'interaction avec l'utilisateur et se lance à un moment précis (ex: backup)
+\end{enumerate}
+
+\subsubsection{Sous Unix/Linux}
+\begin{enumerate}
+  \item Unix: base processus
+  \item Processus 0
+  \item Processus 1: init
+  \item /etc/iinitab -> iinitab = table des processus à lancer
+  \item dameon = processus qui attendent un event (ex: inetd -> gestion des ports internet)
+  \item fork -> programme qui lance un autre programme (copie de lui-même)
+  \item gettty = programme utilisateur (prêt à recevoir un login)
+  \item process login -> A la connection d'un utilisateur -> va voir dans le fichier passwd pour le mdp -> ok -> lance un shell (BASH)
+\end{enumerate}
+
+\subsubsection{Sous Windows}
+\begin{enumerate}
+  \item Une fonction WIN32 -> CreateProcess se charge à la fois de la création du nouveau processus et de sa personalisation
+  \item Des paramètres lui sont fournis
+  \item Démarre les programmes mentionnés
+\end{enumerate}
+
+\subsection{La fin d'un processus}
+\begin{enumerate}
+  \item Normal exit -> voluntary
+  \item Error exit -> voluntary
+  \item Fatal error -> unvoluntary
+  \item Killed by another process -> unvoluntary (commande: kill -> kill -9) -> signal qui est envoyé au processus (kill, siguser...)
+\end{enumerate}
+exemple: division par 0 -> impossible -> détecter par l'OS -> arrêt du programme
+
+\subsubsection{Processus normal exit}
+\begin{enumerate}
+  \item Fin de programme
+  \item Intervention utilisateur
+  \item Linux: appel exit
+  \item WIndows: ExitProcess
+  \item Libération des ressources
+  \item PCB effacé (Process control block)
+\end{enumerate}
+
+\subsection{État des processus}
+\textbf{QUESTION EXAMEN}
+\begin{enumerate}
+\item Lorsque un programme est réveillé il se retrouve -> prêt
+\item Passé de l'état prêt à Élu -> élection (dépend de l'ordre d'importance du programme)
+\item Élu -> le programme à la main sur le CPU
+\item CPU veut donner du temps aux autres programmes -> suspend le programme qui avait la main
+\item exemple: Le process demande un nom à l'utilisateur -> le process est bloqué -> le CPU le libère
+\item si autre process est prêt -> le CPU l'élu -> le process à la main sur le CPU 
+\item lors de l'input de l'utilisateur -> process débloqué -> repassage à l'état prêt
+\end{enumerate}
+
+\subsubsection{États particulier}
+\begin{enumerate}
+\item Initialisation
+\item Terminé
+\item Zombie -> toujours des programmes fils -> ne sait pas ce qu'il fait là
+\item Swappé -> process qui est envoyé vers la swap pour travailler
+\item Préempté -> processus qui arrête de travailler pour donner du temps de process aux autres
+\item Utilisateur
+\item Noyau -> fonction root
+\end{enumerate}
+
+\subsubsection{préemption}
+\begin{enumerate}
+\item Process qui passe la main à un autre dépendant de sa priorité
+\item Transition de l'état Élu à l'état prêt -> permet aux programmes de tourner en "même temps" -> Distribution du CPU aux différents processus 
+\end{enumerate}
+
+\subsection{Les processus et les threads}
+\begin{enumerate}
+\item Première partie de la mémoire lue (données initialisées) -> section .text
+\item Variables non initialisées chargées -> section .data
+\item Les variables de travail situées dans les fonctions -> dans la stack
+\end{enumerate}
+Initialisation d'une fonction dans la \textbf{stack}
+\begin{enumerate}
+\item Premières adresses -> adresse de retour
+\item Placement des paramètres de la fonction par dessus dans la stack
+\item Paramètres locals par dessus dans la stack
+\item Libère les paramètres envoyés dans la stack après le return
+\end{enumerate}
+
+\subsubsection{Allocation dynamique de la mémoire -> dans le \textbf{HEAP}}
+exemple: allocation d'un buffer d'un certain nombre de bytes
+
+\subsubsection{fonction main}
+fonction main avec (argc -> compteur d'arguments | argv -> arguments passés à la fonction)
+Variable \textbf{ENV} -> contient toutes les variables utilisateur
+
+\section{threads}
+Toute les données initialisés et non initialisés (section .data et .text) sont gardées entre les programmes car elles sont les mêmes pour chaque copie du programme
+
+\subsection{Exemple}
+Programme pour compter le nombre de places
+\begin{lstlisting}
+nbplaces = 10
+thread1 -> nbplaces - 5
+thread2 -> nb places - 3
+thread3 -> nbplaces - 4
+\end{lstlisting}
+\begin{enumerate}
+\item nbplaces peut donc être négatif dû à une utilisation en parallèle -> utilisation du \textbf{LOCK} pour la variable.
+\item La variable ne pourra pas être touchée par une autre thread pendant le travail d'une autre
+\item \textbf{INTERLOCK} -> blockage des variables dont une thread a besoin par une autre thread -> process bloqué
+\end{enumerate}
+
+\subsection{Comparaison processus - thread}
+Sans threads
+\begin{enumerate}
+\item 1.5ms recopie intégrale du processus
+\item Communication par le \textbf{noyau} -> \textbf{plus lent, nécessite une programmation spécifique}
+\end{enumerate}
+
+Avec threads
+\begin{enumerate}
+\item 0.5ms création par recopie de certains éléments
+\item Communication par la \textbf{mémoire commune} -> \textbf{plus rapide, moins d'effort de programmation}
+\end{enumerate}

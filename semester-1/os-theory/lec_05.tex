@@ -1,0 +1,90 @@
+\lecture{5}{Lundi 04 Novembre 2019 8:30}{Interprocessus}
+
+\section{Les tuyaux/pipes}
+Utilisé surtout dans les systèmes UNIX -> permet à un groupe de processus de communiquer avec un autre groupe de processus\\
+Un coté lit et et un coté écrit -> chaque coté = descripteur de fichier ouvert soit en lecture ou en écriture\\
+Le coté de lecture ne peut rien faire tant que l'autre n'a rien écrit -> permet la synchronisation\\
+exemple: Lecture des fichiers dans un répertoire = ps -ef | more\\
+"more" ne s'exécutera qu'à la fin de la commande précédente, dans ce cas-ci "ps -ef"
+
+\subsection{Problèmes}
+Exemple: Plusieurs processus qui lit et un qui écrit: L1, L2 et E1\\
+La lecture d'une même donnée n'est pas possible dans ce cas-ci car si L1 la lit, la donnée disparait pour les autres.\\
+Besoin du même nombre de pipes de chaque côté.\\
+Communication seulement \textbf{unidirectionnelle} et ont besoin d'un \textbf{lien de parenté} (Même utilisateur)
+
+\subsection{Tuyaux nommés}
+2 pipes qui n'ont pas de lien de parenté permettent de connecter -> orienté hardware (toujours sur la même machine)\\
+exemple: echo coucou > fifo & (envoi de la commande "echo coucou" au process fifo -> rien pour lire "coucou")\\
+cat fifo -> echo coucou > fifo (lecteur alloué -> affichage du message "coucou")
+
+\subsection{Sockets}
+D'un applicatif à un autre\\
+Communication \textbf{bi-directionnelle} et permettant de fonctionner sur \textbf{la même machine}\\
+Pour communiquer, l'utilisation d'un socket sur l'une des machines peut être utilisé pour la communication -> Port du socket doit être plus grand que 1023(Well known sockets)\\
+Aucun lien de parenté et de pouvoir communiquer vice-versa.
+
+
+\chapter{Ordonnancement}
+\section{Problème}
+Quand arrêter un processus?
+
+\section{Objectif}
+Maximiser le taux d'occupation du CPU\\
+Minimiser le temps de réponse des CPU
+
+\section{Les critères}
+Temps d'attente -> somme de tout le temps passé en file prêt\\
+Temps de réponse\\
+2 mécanismes:
+\begin{enumerate}
+\item Mécanismes non préemptifs: Qui n'interrompt pas le fonctionnement d'un processus: seul l'attente sur une entrée sortie et la fin d'un processus peuvent provoquer l'appel de l'ordonnanceur
+\item Les mécanismes préemptifs: Qui peuvent interrompre le fonctionnement d'un processus, ce qui suppose la mise en place d'un timer
+\end{enumerate}
+Débit = Throughput: nombre de processus qui s’exécutent complètement dans l’unité
+de temps (à maximiser).\\
+Temps de rotation = turnaround: le temps pris par le processus de son arrivée à sa
+fin (à minimiser).\\
+Temps d’attente: attente dans la file prêt (somme de tout le temps passé en file prêt)
+(à minimiser).\\
+Temps de réponse (pour les systèmes interactifs): le temps entre une demande et la
+réponse (à minimiser).
+
+\section{Ordonnanceur et répartiteur}
+L'ordonnanceur: Crée la fil d'attente de processus selon des critères bien spécifiques (politique d'ordonnancement) -> envoi des PCB dans la file d'attente(Process control block)\\
+Répartiteur: Donne les différents processus aux différents CPU ou coeur d'un même CPU\\
+Préemption d'un processus: Fin d'un processus renvoyé à l'ordonnanceur pour être remis dans la file d'attente
+
+\section{Politiques d'ordonnancement}
+Premier arrivé, premier servi (FIFO)\\
+Plus court d'abord (priorité aux programmes qui prennent le moins de temps)\\
+Par priorité constantes (tout le temps la même priorité)\\
+Par tourniquet (round robin)\\
+Par files de priorités constantes multiniveaux avec ou sans extinction de priorité
+
+\subsection{Premier arrivé, premier servi}
+Exemple: Trois processus -> P1(24UT), P2(3UT) et P3(3UT)\\
+P1 n'ayant pas de temps d'attente -> s'exécute\\
+P2 attend la fin de P1 -> 24UT et s'exécute\\
+P3 attend donc 27 UT avant de s'exécuter\\
+Si P1 était mis en dernier le temps d'attente est modifié drastiquement\\
+\textbf{Le système n'est donc pas prévisible}
+
+\subsection{FSJ: Le plus court d'abord}
+Sélection du processus nécessitant le moins de temps d'exécution\\
+Méthode non préemptive:
+\begin{enumerate}
+\item exemple: P1(7UT), P2(4UT), P3(1UT) et P4(4UT)
+\item Arrivé de P1 en premier -> s'exécute pendant que P2, P3 et P4 arrivent
+\item P3 étant le plus court -> s'exécute
+\item P2 s'exécute ensuite et P4 par après
+\item T = (3 + 6 + 7) / 4 = 4
+\end{enumerate}
+Méthode préemptive:
+\begin{enumerate}
+\item P1 -> s'exécute
+\item P2 arrive pendant l'exécution de P1 -> P2 plus court que P1 -> P2 prend le processeur avant que P1 n'ai fini
+\item P3 arrive pendant l'exécution de P2 -> P3 plus court que P2 -> P3 s'exécute et se termine
+\item P2 ayant déjà une partie de son exécution faite il est donc plus court que P4 -> P2 se termine
+\item P4 étant plus court que le reste de l'exécution de P1 -> Fin de P4 et de P1 par la suite
+\end{enumerate}

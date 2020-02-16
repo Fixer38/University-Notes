@@ -2,3 +2,60 @@
 \contentsline {chapter}{\numberline {1}Concepts de base}{2}
 \contentsline {section}{\numberline {1.1}Instructions}{2}
 \contentsline {section}{\numberline {1.2}Registres}{3}
+\contentsline {chapter}{\numberline {2}Les m\IeC {\'e}canismes d'ex\IeC {\'e}cution d'un programme}{6}
+\contentsline {section}{\numberline {2.1}Opcodes et languages machines}{6}
+\contentsline {section}{\numberline {2.2}Mapping mn\IeC {\'e}moniques et registres (AR1)}{6}
+\contentsline {section}{\numberline {2.3}Instruction add avec registres}{7}
+\contentsline {section}{\numberline {2.4}Instruction add avec valeurs imm\IeC {\'e}diates}{7}
+\contentsline {section}{\numberline {2.5}Instruction load avec type imm\IeC {\'e}diat}{8}
+\contentsline {section}{\numberline {2.6}Instruction load avec registre}{8}
+\contentsline {section}{\numberline {2.7}Instruction load avec base + offset}{8}
+\contentsline {section}{\numberline {2.8}L'assembleur}{8}
+\contentsline {section}{\numberline {2.9}Compilateur}{9}
+\contentsline {section}{\numberline {2.10}program counter}{10}
+\contentsline {section}{\numberline {2.11}instruction register}{10}
+\contentsline {section}{\numberline {2.12}Proc Status Word (PSW)}{10}
+\contentsline {section}{\numberline {2.13}Stack Register}{10}
+\contentsline {section}{\numberline {2.14}Fetch-Decode-Execute}{11}
+\contentsline {subsection}{\numberline {2.14.1}exemple}{11}
+\contentsline {section}{\numberline {2.15}recap dans AR1}{11}
+\contentsline {chapter}{\numberline {3}CPU}{12}
+\contentsline {section}{\numberline {3.1}CPU}{12}
+\contentsline {subsection}{\numberline {3.1.1}L'horloge}{12}
+\contentsline {section}{\numberline {3.2}Les instructions de saut inconditionnel}{12}
+\contentsline {section}{\numberline {3.3}Les instructions de saut conditionnel}{12}
+\contentsline {subsection}{\numberline {3.3.1}exemple}{13}
+\contentsline {subsection}{\numberline {3.3.2}exemples de jump}{13}
+\contentsline {subsection}{\numberline {3.3.3}label}{13}
+\contentsline {chapter}{\numberline {4}Pipelined Execution}{14}
+\contentsline {section}{\numberline {4.1}Rappel du cycle de base}{14}
+\contentsline {section}{\numberline {4.2}Remarques}{14}
+\contentsline {section}{\numberline {4.3}4 phases d'ex\IeC {\'e}cution}{14}
+\contentsline {subsection}{\numberline {4.3.1}Rappel de l'ex\IeC {\'e}cution}{15}
+\contentsline {section}{\numberline {4.4}Program Execute et Completion Rate}{15}
+\contentsline {subsection}{\numberline {4.4.1}Completion Rate}{15}
+\contentsline {subsection}{\numberline {4.4.2}pipeline}{15}
+\contentsline {subsubsection}{Augmenter les performances}{16}
+\contentsline {subsubsection}{analogie fabrique de voiture}{16}
+\contentsline {subsubsection}{Seconde approche avec pipeline}{16}
+\contentsline {subsubsection}{Gain}{16}
+\contentsline {subsection}{\numberline {4.4.3}Processeurs single cycle}{16}
+\contentsline {subsubsection}{Observations}{17}
+\contentsline {subsection}{\numberline {4.4.4}Processeurs avec Pipeline}{17}
+\contentsline {subsubsection}{Observations}{17}
+\contentsline {subsection}{\numberline {4.4.5}L'incidence sur l'horloge}{17}
+\contentsline {chapter}{\numberline {5}Pipeline am\IeC {\'e}liorations et probl\IeC {\`e}mes}{18}
+\contentsline {subsection}{\numberline {5.0.1}Incidence sur la dur\IeC {\'e}e d'ex\IeC {\'e}cution du programme}{18}
+\contentsline {subsection}{\numberline {5.0.2}Am\IeC {\'e}liorer les performances}{18}
+\contentsline {subsection}{\numberline {5.0.3}Limites du pipeline en profondeur 4}{19}
+\contentsline {subsubsection}{analyse}{19}
+\contentsline {subsubsection}{D\IeC {\'e}crochage du pipeline}{19}
+\contentsline {subsection}{\numberline {5.0.4}Valeurs r\IeC {\'e}elles}{19}
+\contentsline {subsection}{\numberline {5.0.5}CCL sur le d\IeC {\'e}crochage de pipeline}{19}
+\contentsline {subsection}{\numberline {5.0.6}Limites du pipeline}{20}
+\contentsline {subsubsection}{exemple}{20}
+\contentsline {subsubsection}{Probl\IeC {\`e}mes}{20}
+\contentsline {chapter}{\numberline {6}Virtualisation}{21}
+\contentsline {section}{\numberline {6.1}Introduction}{21}
+\contentsline {subsection}{\numberline {6.1.1}S\IeC {\'e}curit\IeC {\'e}}{21}
+\contentsline {subsection}{\numberline {6.1.2}Qu'est ce qu'une VM}{21}

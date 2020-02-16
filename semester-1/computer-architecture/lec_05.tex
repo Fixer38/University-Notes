@@ -1,0 +1,93 @@
+\chapter{Pipeline améliorations et problèmes}
+\lecture{5}{Lundi 14 Octobre 2019 13:10}{Pipeline}
+\subsection{Incidence sur la durée d'exécution du programme}
+\begin{enumerate}
+  \item La durée d'exécution d'une instruction n'a pas été modifiée mais la durée d'\textbf{exécution totale du programme entier (suite d'instructions) a été fortement réduite}
+  \item Cela a été réalisé en augmentant le nombre d'instructions terminées par unité de temps
+  \item Le pipeline rend plus efficace l'utilisation des ressources du CPU en faisant travailler \textbf{simultanément ses différentes sous-unités}
+\end{enumerate}
+
+\subsection{Améliorer les performances}
+\begin{enumerate}
+  \item En passant d'un processeur single cycle à un processeur ayant une profondeur de pipeline de 4, on observe une amélioration d'un facteur 4
+  \item Que se passerait-il si la profondeur du pipeline passait à 5, 6, 7... avec des durées d'étapes intermédiaires de plus en plus courtes? L'instruction va durer le même temps, des subdivisions plus petites seront présentes dans les étapes (fetch-decode-execute-write)
+  \item + d'étapes -> + d'instructions en cours d'exécution dans le pipeline -> + d'intructions traités par secondes
+  \item Avec un découpage en 8 étapes, on obtient 1 instruction terminée toutes les 0,5 ns 
+  \item Completion rate = 2 instr/s
+\end{enumerate}
+
+\subsection{Limites du pipeline en profondeur 4}
+\begin{enumerate}
+\item En 8ns, le pipeline a permis d'exécuter 5 instructions car \textbf{certaines cases ne sont pas remplies au début du programme}
+\item En single cycle aurait exécuté 2 instructions dans le même temps
+\item 5 au lieu de 2 ne se représente pas vraiment comme un gain de 4
+\item 5 instructions/8ns donne un completion rate de 0,625 inst/ns ce qui ne représente pas le 1 inst/ns
+\end{enumerate}
+
+\subsubsection{analyse}
+\begin{enumerate}
+\item Pour que le gain du au pipeline devienne appréciable, il faudra que le nombre d'instructions dans le programme soit suffisant
+\item Exemple: sur 1000ns, un processeur a pipeline de profondeur 4 aura exécuté 996 instructions au lieu des 250 sans pipeline
+\item soit un gain de 3,984 proche de 4
+\item 4 est en réalité \textbf{un maximum théorique et 3,984 est la moyenne réelle}
+\end{enumerate}
+
+\subsubsection{Décrochage du pipeline}
+\begin{enumerate}
+\item Il peut arriver que des étapes du pipeline nécessitent plus d'un cycle horloge
+\item Des "bulles" apparaissent et voyagent alors dans le pipeline, réduisant ainsi ses performances -> Repassage à une case vide -> \textbf{L'instruction prend donc plusieurs cycles machine pour s'exécuter}
+\item La latence d'une instruction peut traduire le temps réel qu'elle met pour traverser le pipeline en prenant en compte les bulles
+\end{enumerate}
+
+\subsection{Valeurs réelles}
+\begin{enumerate}
+\item En pratique un processeur cadencé à 3GHz peut facilement attendre 50 à 120ns des données en provenance de la mémoire centrale
+\item Une centaine de ns représentent à ces cadences, quelques milliers de cycles d'horloge 
+\item Et cela pour un seul accès mémoire. Or il s'en produit des millions lors du déroulement d'un programme...
+\item 120ns = 120⁻⁹ sec 3GHz = 3⁹HZ
+\item Nombre de cycles d'horloges en 120ns -> t=1/f -> t=1/3⁹ = 3,33333⁻¹⁰ -> 120⁻⁹/t = 360.0
+\end{enumerate}
+
+\subsection{CCL sur le décrochage de pipeline}
+\begin{enumerate}
+\item Les bulles doivent absolument être évitées au maximum
+\item Elles sont généralement dues à des accès trop lents à la mémoire centrale
+\end{enumerate}
+
+Solutions:
+\begin{enumerate}
+\item Mémoire cache
+\item D'autres causes et pistes de solutions associées existent
+\end{enumerate}
+
+\subsection{Limites du pipeline}
+\begin{enumerate}
+\item Il est difficile de découper une instruction en plusieurs étapes équivalentes qu'on voudrait
+\item Toujours étapes finiront par être plus longues que certaines (car indivisibles)
+\item Ces étapes plus longues influencent le rythme de l'horloge
+\end{enumerate}
+En fait on peut même concevoir qu'une instruction réalisée dans un pipeline peut prendre plus de temps pour s'exécuter que dans un single cycle, exemple:
+\begin{enumerate}
+\item Une instruction prend 4ns pour se réaliser en single cycle
+\item On la sépare en 4 étapes dont les durées respectives sont w,x,y, z ns (proche de 1ns mais pas parfaitement identiques)
+\item x = la \textbf{plus longue qui impose le rythme} (x > 1ns) -> temps total = 4 fois x > 4ns
+\end{enumerate}
+L'horloge est une limite
+\begin{enumerate}
+\item On ne peut pas atteindre l'horloge théorique idéale: horloge sans pipeline/ profondeur du pipeline
+\item l'horloge réelle est limitée à une cadence maximale -> surchauffe -> dégradation
+\item A une même cadence limite, un processeur avec une profondeur plus élevée mettra alors plus de temps pour se remplir
+\end{enumerate}
+
+\subsubsection{exemple}
+\begin{enumerate}
+\item un pipeline en 4 stages peut être plus rapide qu'une en 8 stages dû aux bulles -> étapes vont durer plus longtemps que la fréquence du CPU -> multiplication des bulles -> dégradation du nombre d'instructions sorties par cycle d'horloge
+\end{enumerate}
+
+\subsubsection{Problèmes}
+\begin{enumerate}
+\item Cout financier -> plus de transistors
+\item L'architecture à pipeline est complexe et requiert des composants supplémentaires
+\item Ces composants ont un coût
+\item Dégagement de chaleurs par les circuits
+\end{enumerate}

@@ -1,0 +1,134 @@
+\chapter{Pipelined Execution}
+lecture{4}{Lundi 07 octobre 2019 8:30}{Pipelined Execution}
+\section{Rappel du cycle de base}
+\begin{enumerate}
+  \item Fetch 
+  \item Decode
+  \item Execute
+\end{enumerate}
+Execute divisé en 3 se passe dans l'ALU, elle ne traite que des infos provenant de registres
+\begin{enumerate}
+  \item Read 
+  \item Add 
+  \item Write
+\end{enumerate}
+
+\section{Remarques}
+La plupart des micro processeurs actuels traitent
+\begin{enumerate}
+  \item 3a(read) et 3b(add) sont comme un groupe
+  \item La sous-étape 3c(write) traité séparément
+\end{enumerate}
+
+\section{4 phases d'exécution}
+\begin{enumerate}
+  \item Fetch
+  \item Decode
+  \item Execute
+  \item Read and Add
+  \item Write
+\end{enumerate}
+
+\subsection{Rappel de l'exécution}
+3 bus sont entre la RAM et le CPU
+\begin{enumerate}
+\item le bus d'adresse, regroupe les adresses adressables
+\item le bus de contrôle, Commandes de lecture et écriture, contient le bus d'horloge pour dire que la donnée est valide (problème de fils plus long, exemple: changer 3 bits d'un coup ne se fait pas en même temps) 
+\item le bus de données, contient et transporte les données
+\end{enumerate}
+Dans l'AR1 -> 4 registres ABCD et PC et l'IR
+\begin{enumerate}
+  \item il démarre et va exécuter la première instruction -> envoi de la première adresse au PC
+  Les adresses de démarrage sont réservées par le micro processeur
+  \item envoi de l'adresse jusqu'au bus d'adresse, validation de l'adresse -> je lis ce qui se trouve à l'adresse -> envoi de la cellule mémoire contenue dans la RAM vers le bus de données -> arrive dans l'IR
+  \item Le PC va être incrémenté après avoir fini de lire une adresse -> lecture de l'adresse suivante -> envoi dans le bus d'adresse -> lecture dans le bus de contrôle -> cellule mémoire arrive dans le bus de données 
+  \item Envoi dans l'IR -> exécution de l'instruction (l'IR est de 2 octets de long, peut stocker une instruction longue de 10 bits)
+  \item exemple: instruction avec un résultat dans C (add A,B, C - load A, C)
+
+\end{enumerate}
+
+\section{Program Execute et Completion Rate}
+Program Execution Time = Number of instructions in program / Instruction Completion Rate
+Prise de valeur moyenne, chaque instruction prend un temps différent
+
+\subsection{Completion Rate}
+\begin{enumerate}
+  \item Nombre d'instructions terminées par l'unité de temps -> instr/ns
+  \item Ne pas confondre avec le temps d'exécution d'une instruction en ns
+  \item Dans un CPU sans \textbf{pipeline} le rapport entre les 2 est de type inversement proportionnel (l'une est égale à l'inverse de l'autre)
+\end{enumerate}
+
+\subsection{pipeline}
+\begin{enumerate}
+  \item Ce système permet d'augmenter le Completion Rate sas modifier le temps d'exécution du temps d'une instruction (fin de la relation inversement proportionnel)
+  \item Certaines instructions mettront plus de temps à s'exécuter avec un CPU à pipeline que sans, celles-ci ne peuvent pas se mettre dans la pipeline
+\end{enumerate}
+
+\subsubsection{Augmenter les performances}
+\begin{enumerate}
+\item 2 pistes
+\begin{itemize}
+\item Réduire le nombre d'instructions du programme
+\item Augmenter le completion rate
+\end{itemize}
+\item Nombre d'intructions du programme est fixé pour l'exemple
+\end{enumerate}
+
+\subsubsection{analogie fabrique de voiture}
+La chaine de production est composée de 5 équipes distinctes spécialisées dans une seule tâche
+\begin{enumerate}
+  \item Fabriquer le chassis, il attend la fin de la chaine pour commencer un nouveau chassis
+  \item Mettre le moteur sur le chassis
+  \item Mettre les portes, ailes et le capot
+  \item Attacher les roues
+  \item Peindre le véhicule
+  \item Chaque équipe fini par attendre la fin de la chaîne pour recommencer à construire une voiture
+\end{enumerate}
+
+\subsubsection{Seconde approche avec pipeline}
+Si chaque équipe ne s'arrête jamais de travailler et recommence leur travail spécifique au lieu d'attendre que la chaîne soit finie pour recommencer à travailler
+
+\subsubsection{Gain}
+\begin{enumerate}
+  \item Dès la 6ème heure, on passe de 1 véhicule toutes les 5h à 1 véhicule par heure
+  \item Sans changer le temps total pour fabriquer un véhicule on améliore d'un facteur 5 les performances
+  \item Pour peu que la chaine de fabrication reste pleine
+\end{enumerate}
+
+\subsection{Processeurs single cycle}
+\begin{enumerate}
+  \item Single Cycle = absence de pipeline
+  \item 1 cycle de vie d'instruction = 1 cycle d'horloge = fetch - decode - execute - write
+  \item les 4 phases vont être exécutées sur une impulsion d'horloge (besoin d'un cycle d'horloge car changement de bits -> attente d'un certain temps, unité de temps = impulsion horloge)
+  \item Chaque phase va attendre que le cycle soit terminé pour recommencer à travailler
+\end{enumerate}
+
+\subsubsection{Observations}
+\begin{enumerate}
+  \item Pour améliorer le Completion rate, il faut cadencer l'horloge de + en + vite
+  \item Sans dépasser le temps maximum que prend une instruction pour s'exécuter complètement
+  \item Illustration précédente: un programme de 4 instructions prendra 16ns, soit un completion rate de 0,25 instr/ns
+\end{enumerate}
+
+\subsection{Processeurs avec Pipeline}
+exemple
+\begin{enumerate}
+  \item Avec une profondeur de pipeline de 4
+  \item Après la première phase, durant la deuxième phase un autre fetch s'exécute
+  \item chaque phase n'attend pas la fin du cycle, elle travaille directement sur la prochaine instruction
+  \item exemple: Fetch 1ère instruction -> decode 1ère instruction + fetch 2ème instruction -> Execute 1ère instru + decode 2ème instru + fetch 3ème instru
+  \item Toutes les 4 nanosecondes une instruction est effectuée est toutes les nanosecondes une instruction sort
+\end{enumerate}
+
+\subsubsection{Observations}
+\begin{enumerate}
+  \item Dès le début de la 5ème ns, une instruction est exécutée toutes les ns
+  \item Dans cette exemple un programme de 4 instructions prendra 8ns, completion rate de 1 instr/ns -> gain de 4 sur le nombre d'instructions traitées par ns(car 4 phases)
+\end{enumerate}
+
+\subsection{L'incidence sur l'horloge}
+\begin{enumerate}
+\item L'horloge ne cadence plus une instruction complète mais les phases d'instructions
+\item -> Les pulsations sont bien plus courtes (exemple: 4ns -> 1ns)
+\item Ceci implique qu'une instruction ne doit plus nécessairement être finie à la fin de chaque cycle d'horloge (ex: avant le début de la 5ème ns dans l'illustration précédente)
+\end{enumerate}

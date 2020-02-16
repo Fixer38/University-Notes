@@ -1,0 +1,133 @@
+\lecture{4}{Lundi 21 Octobre 2019 8:30}{Communication inter-processus}
+\chapter{Communication inter-processus}
+\section{Notion de processus}
+Un processus est un programme en cours d ’exécution auquel est associé un
+environnement processeur (CO, PSW, RSP, registres généraux) et un environnement
+mémoire appelés contexte du processus.
+
+\section{Notion de ressources}
+Une ressource logique (variable) ou une ressource matérielle (processeur, périphérique) caractérisée par:
+\begin{enumerate}
+\item un état: libre/occupée
+\item point d'accès (qui peut y toucher) -> un seul processus peut toucher à la variable
+\end{enumerate}
+
+\subsection{Allocation des ressources}
+Trois étapes:
+\begin{enumerate}
+\item Allocation
+\item Utilisation
+\item Restitution
+\end{enumerate}
+
+\subsection{interblocage}
+2 programmes ont besoin de 2 ressources chacun \\
+Une ressource est bloquée par un des 2 programmes -> interblocage -> freeze du système
+
+\subsection{Famine}
+Attente infinie -> on ne sait pas quand elle fini
+
+\subsection{Conditions nécessaires à un interblocage}
+\begin{enumerate}
+\item Besoin de ressources critiques (qui ne peuvent pas être partagées et qui ont un seul point d'accès)
+\item Occupation et attente: Processus qui occupe au moins une ressource attend d'acquérir une ressource d'un autre processus
+\item Pas de réquisition: Les ressources sont libérées sur une seule volonté des processus les détenant
+\item Attente circulaire: Au moins un processus P1 attend une ressource détenue par un autre processus P2, P2 attend lui-même un ressource détenue P1
+\end{enumerate}
+
+\subsection{L'exclusion mutuelle}
+Les processus disposent d'un espace d'adressage, inacessible par les autres processus
+Pour communiquer entre eux les processus utilisent des systèmes de communication tels que les \textbf{pipes}
+
+\subsection{Section critique}
+Partie d'un programme dont l'exécution se peut s'entrelacer avec d'autres programmes \\
+protection de la variable utilisée par le premier programme pour éviter qu'une thread l'utilise -> \textbf{LOCK}
+
+\subsubsection{Généralisation de ce problème}
+Se présente dans:
+\begin{enumerate}
+\item Base de données
+\item Le partage des ressources
+\item Les automates
+\item Le hardware
+\item Le développement
+\end{enumerate}
+
+\subsection{Solution matérielle}
+Masquage des interruptions
+
+\subsection{Solution algorithmique}
+Attente active: Toutes les Xms check de la ressource libre ou non = Polling\\
+
+\section{Solution fournie par le système}
+Un sémaphore S peut être vu comme un distributeur de jetons\\
+\begin{enumerate}
+\item L'opération INIT(S, VAL) fixe le nombre de jetons initial
+\item L'opération P(S) attribue un jeton au processus appelant si il en reste sinon -> bloque le processus
+\item L'opération V(S) restitue un jeton et débloque un processus de S.L si il en existe un
+\end{enumerate}
+Jeton = \textbf{mutex} -> mutuellement exclusif un seul point d'accès\\
+Avant de lire et de s'allouer une place -> blocage -> Au déblocage du jeton distribue un nouveau jeton
+
+\subsection{Allocation de ressources}
+Accès a un ensemble de n ressources critiques\\
+Si ensemble de processus -> accès a un ensemble de n ressources critiques\\\\
+Allocaton - utilisation - restitution
+\begin{enumerate}
+\item Allouer une ressource = prendre un jeton Res
+\item Rendre une ressource = rendre un jeton Res
+\end{enumerate}
+Plan d'exécution
+\begin{enumerate}
+\item Sémaphore Res initialisé à N (1 jeton par ressource)
+\item Allocation: P(Res)
+\item Utilisation Ressource
+\item Restitution V(Res)
+\end{enumerate}
+
+\subsection{Lecteur-rédacteur}
+\begin{enumerate}
+\item Contenu du fichier doit rester cohérent: \textbf{Pas d'écriture simultanée}
+\item Lectures doivent être cohérentes: \textbf{Pas de lecture en même temps que les écritures}
+\end{enumerate}
+
+\subsection{Producteur-consommateur}
+Exemple: Gestion FIFO -> buffer réseau TCP)
+\begin{enumerate}
+\item L'un produit dans les cases et un autre lit
+\item Un producteur ne doit pas produire si le tampon est plein
+\item Un consommateur ne doit pas faire de retrait si le tampon est vide
+\item Producteur et consommateur ne doivent jamais travailler dans une même case
+\end{enumerate}
+
+\subsection{Résumé}
+\begin{enumerate}
+\item Les exécutions de processus ne sont pas indépendantes: les processus peuvent vouloir communiquer et accéder de manière concurrente à des ressources 
+\item Les sémaphores S est un outil système de synchronisation assimilable à un distributeur de jeton et manipulable par seulement trois opérations atomique P(S), V(S) et Init(S)
+\item Il existe plusieurs schémas typiques de synchronisation à partir desquels sont élaborés des outils de communication entre processus\\
+l'exclusion mutuelle\\
+les lecteurs/rédacteurs\\
+les producteurs/consommateurs
+\end{enumerate}
+
+\section{Les signaux}
+Information atomique envoyée à un processus ou à un programme\\
+Processus peut réagir de différentes manières à un signal\\
+Outils permettant la gestion de processus par l'utilisateur, le système ou autre processus\\
+3 différentes réactions d'un processus face à un signal:
+\begin{enumerate}
+\item Il est dérouté vers une fonction spécifique
+\item Le signal est ignoré
+\item Peut provoquer l'arrêt du procesus (avec on sans génération d'un fichier core dump)
+\end{enumerate}
+
+\subsection{Différents signaux}
+\begin{enumerate}
+\item SIGINT -> provoqué par le caractère associé à intr sur le clavier de l'utilisateur
+\item SIGQUIT -> provoqué par le caractère quit associé au clavier de l'utilisateur
+\item SIGILL -> Instruction illégale
+\item SIGFPE -> Erreur arithmétique (ex: division par zéro)
+\item SIGKILL -> Signal de terminaison, son gestionnaire ne peut pas être remplacé
+\item SIGSEGV -> Violation mémoire
+\item SIGCHLD -> terminaison d'un fils
+\end{enumerate}

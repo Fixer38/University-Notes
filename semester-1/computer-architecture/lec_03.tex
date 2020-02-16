@@ -1,0 +1,55 @@
+\chapter{CPU}
+\lecture{3}{Lundi 30 Septembre 2019 13:10}{}
+\section{CPU}
+\subsection{L'horloge}
+\begin{enumerate}
+  \item Étapes vues jusqu'ici sont réalisées au rythme de 1 pulsation d'horloge
+  \item L'horloge est in signal cadencé à vitesse (fréquence) fixe par un dispositif dédié
+  \item Idéalement, un cycle fetch-code-execute doit être réalisé en une impulsion d'horloge
+  \item A un certain moment les données ne sont pas bonnes, la fréquence d'horloge sert à synchroniser toutes les données pour s'exécuter proprement
+\end{enumerate}
+
+\section{Les instructions de saut inconditionnel}
+\begin{enumerate}
+\item Unconditional branch = jump \#target
+\item Permet de continuer l'exécution d'un programme à un autre endroit dans la mémoire
+\item La cible du saut (target) est une valeur immédiate (\#500) ou une adresse stockée dans un registre (\#D ou \#(D+103))
+\item Charge une valeur dans le PC (program counter)
+\item Attention: registre et bus d'adresse doivent être de même longueur (en bits) sinon utilisation de plusieurs registres si plus long -> création de banque de données (bits qui ne changent pas)
+\end{enumerate}
+
+\section{Les instructions de saut conditionnel} 
+\begin{enumerate}
+\item Conditional Branch = jumpx \#target
+\item Le PC est chargé si la condition est remplie
+\item La condition est souvent un bit du PSW
+\item Le PSW a plusieurs bits de "résultats d'opérations"
+\item 1(true) ou 0(false) sera écrit dans le PSW selon une condition bien précise 
+\item Pour vérifier que la condition est remplie il suffira donc de vérifier le bit approprié dans PSW(flags)
+\end{enumerate}
+\subsection{exemple}
+\begin{lstlisting}
+sub A, B, C ; soustraire le nombre contenu dans le registre 1 du nombre contenu dans le registre B et stocker le résultat dans C
+jumpz #106  ; vérifier le PSW et si le résultat de l'instruction précédente est 0, sauter à l'instruction à l'adresse #106. Si le résultat est != 0, continuer à la ligne 20
+add A, B, C ; Additioner les nombres contenus dans les registres A et B et stocker le résultat en C
+\end{lstlisting}
+Incrementation de 2 sur le nombres d'adresse car chaque instruction codé sur 2 bits
+
+\subsection{exemples de jump}
+\begin{enumerate}
+\item jumpn
+\item jumpo
+\end{enumerate}
+
+\subsection{label}
+Plus facile d'utiliser des labels à la place des adresses mémoires (absolues ou relatives)
+\begin{lstlisting}
+sub A, B, A ; soustrait A à B, résultat dans A
+jumpz LBL1 ; jump à LBL1 si résultat est égal à zéro
+add A, 15, A ; ajouter 15 à A résultat dans A
+store A, #(D + 16) ; stocker A dans la cellule #D+16
+LBL1: ; définition du label LBL1
+  add A, B, B ; ajouter A à B stocker résultat dans B
+store B, #(D+16) ; stocker B dans la cellule #D+16
+\end{lstlisting}
+

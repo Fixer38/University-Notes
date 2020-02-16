@@ -129,11 +129,12 @@ add, A, 2, A
 \end{lstlisting}
 \item 2ème programme (utilisation de D sans savoir sa valeur):
 \begin{lstlisting}
-load #D, A ;Contenu de #D = 12 dans A
+load #D, A ;Contenu de #D = 12, valeur de la cellule 12 dans A
 load #13, B ;Contenu de la cellule 13 dans B
 add A, B, C ;Add A+B -> result dans C
 store C, #14 ;Stocker C dans cellule 14
 \end{lstlisting}
+\textbf{Le \# pointe vers la case mémoire contenue dans le registre mentionné}
 \item 3ème programme:
 \begin{lstlisting}
 load #11, D ;Contenu de la cellule 11 dans D(pointeur)
@@ -168,3 +169,4 @@ AR1: A,B,C,D = GPRs.
 Registre de \textbf{statut \& registre de contrôle}.
 
 Schema + bus de contrôle, tout est addressable.
+\end{enumerate}

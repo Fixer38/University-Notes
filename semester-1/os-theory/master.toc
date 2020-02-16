@@ -1,0 +1,87 @@
+\babel@toc {french}{}
+\contentsline {chapter}{\numberline {1}}{3}
+\contentsline {section}{\numberline {1.1}Structure de l'OS}{3}
+\contentsline {section}{\numberline {1.2}Assembleur}{3}
+\contentsline {section}{\numberline {1.3}Concurrency}{3}
+\contentsline {section}{\numberline {1.4}Prompt}{4}
+\contentsline {section}{\numberline {1.5}Fonctions principales}{4}
+\contentsline {subsection}{\numberline {1.5.1}Machine \IeC {\'e}tendue}{4}
+\contentsline {section}{\numberline {1.6}Classement des OS}{4}
+\contentsline {subsection}{\numberline {1.6.1}Mainframe}{5}
+\contentsline {subsection}{\numberline {1.6.2}Serveur}{5}
+\contentsline {subsection}{\numberline {1.6.3}Multiprocesseurs}{5}
+\contentsline {subsection}{\numberline {1.6.4}Personnel}{5}
+\contentsline {subsection}{\numberline {1.6.5}De poche}{5}
+\contentsline {subsection}{\numberline {1.6.6}Embarqu\IeC {\'e}s}{5}
+\contentsline {subsection}{\numberline {1.6.7}Temps r\IeC {\'e}el}{6}
+\contentsline {chapter}{\numberline {2}Histoire}{7}
+\contentsline {section}{\numberline {2.1}Concepts incontournables}{7}
+\contentsline {subsection}{\numberline {2.1.1}Processus}{7}
+\contentsline {subsection}{\numberline {2.1.2}L'espace addressable}{7}
+\contentsline {subsection}{\numberline {2.1.3}Syst\IeC {\`e}me de fichiers}{8}
+\contentsline {subsection}{\numberline {2.1.4}Appels syst\IeC {\`e}me}{8}
+\contentsline {section}{\numberline {2.2}Structure des OS}{8}
+\contentsline {subsection}{\numberline {2.2.1}Monolithiques}{8}
+\contentsline {subsubsection}{fonctionnement}{8}
+\contentsline {subsection}{\numberline {2.2.2}En couches}{9}
+\contentsline {subsection}{\numberline {2.2.3}Micro-noyau}{9}
+\contentsline {subsection}{\numberline {2.2.4}Machines virtuelles}{9}
+\contentsline {section}{\numberline {2.3}Historique de syst\IeC {\`e}mes}{9}
+\contentsline {subsection}{\numberline {2.3.1}1\IeC {\`e}re g\IeC {\'e}n\IeC {\'e}ration}{9}
+\contentsline {subsection}{\numberline {2.3.2}2\IeC {\`e}me g\IeC {\'e}n\IeC {\'e}ration}{10}
+\contentsline {subsection}{\numberline {2.3.3}3\IeC {\`e}me g\IeC {\'e}n\IeC {\'e}ration}{10}
+\contentsline {subsection}{\numberline {2.3.4}Multiutilisateurs}{10}
+\contentsline {subsection}{\numberline {2.3.5}MULTIX}{10}
+\contentsline {section}{\numberline {2.4}UNIX}{10}
+\contentsline {subsection}{\numberline {2.4.1}POSIX}{10}
+\contentsline {section}{\numberline {2.5}Micros}{11}
+\contentsline {section}{\numberline {2.6}Windows}{11}
+\contentsline {chapter}{\numberline {3}Processus et threads}{12}
+\contentsline {section}{\numberline {3.1}Processus}{12}
+\contentsline {subsection}{\numberline {3.1.1}Les processus}{12}
+\contentsline {subsection}{\numberline {3.1.2}Types de processus}{12}
+\contentsline {subsection}{\numberline {3.1.3}Cr\IeC {\'e}ation des processus}{12}
+\contentsline {subsubsection}{Sous Unix/Linux}{13}
+\contentsline {subsubsection}{Sous Windows}{13}
+\contentsline {subsection}{\numberline {3.1.4}La fin d'un processus}{13}
+\contentsline {subsubsection}{Processus normal exit}{13}
+\contentsline {subsection}{\numberline {3.1.5}\IeC {\'E}tat des processus}{14}
+\contentsline {subsubsection}{\IeC {\'E}tats particulier}{14}
+\contentsline {subsubsection}{pr\IeC {\'e}emption}{14}
+\contentsline {subsection}{\numberline {3.1.6}Les processus et les threads}{14}
+\contentsline {subsubsection}{Allocation dynamique de la m\IeC {\'e}moire -> dans le \textbf {HEAP}}{15}
+\contentsline {subsubsection}{fonction main}{15}
+\contentsline {section}{\numberline {3.2}threads}{15}
+\contentsline {subsection}{\numberline {3.2.1}Exemple}{15}
+\contentsline {subsection}{\numberline {3.2.2}Comparaison processus - thread}{15}
+\contentsline {chapter}{\numberline {4}Communication inter-processus}{16}
+\contentsline {section}{\numberline {4.1}Notion de processus}{16}
+\contentsline {section}{\numberline {4.2}Notion de ressources}{16}
+\contentsline {subsection}{\numberline {4.2.1}Allocation des ressources}{16}
+\contentsline {subsection}{\numberline {4.2.2}interblocage}{16}
+\contentsline {subsection}{\numberline {4.2.3}Famine}{17}
+\contentsline {subsection}{\numberline {4.2.4}Conditions n\IeC {\'e}cessaires \IeC {\`a} un interblocage}{17}
+\contentsline {subsection}{\numberline {4.2.5}L'exclusion mutuelle}{17}
+\contentsline {subsection}{\numberline {4.2.6}Section critique}{17}
+\contentsline {subsubsection}{G\IeC {\'e}n\IeC {\'e}ralisation de ce probl\IeC {\`e}me}{17}
+\contentsline {subsection}{\numberline {4.2.7}Solution mat\IeC {\'e}rielle}{17}
+\contentsline {subsection}{\numberline {4.2.8}Solution algorithmique}{18}
+\contentsline {section}{\numberline {4.3}Solution fournie par le syst\IeC {\`e}me}{18}
+\contentsline {subsection}{\numberline {4.3.1}Allocation de ressources}{18}
+\contentsline {subsection}{\numberline {4.3.2}Lecteur-r\IeC {\'e}dacteur}{18}
+\contentsline {subsection}{\numberline {4.3.3}Producteur-consommateur}{19}
+\contentsline {subsection}{\numberline {4.3.4}R\IeC {\'e}sum\IeC {\'e}}{19}
+\contentsline {section}{\numberline {4.4}Les signaux}{19}
+\contentsline {subsection}{\numberline {4.4.1}Diff\IeC {\'e}rents signaux}{19}
+\contentsline {section}{\numberline {4.5}Les tuyaux/pipes}{20}
+\contentsline {subsection}{\numberline {4.5.1}Probl\IeC {\`e}mes}{20}
+\contentsline {subsection}{\numberline {4.5.2}Tuyaux nomm\IeC {\'e}s}{20}
+\contentsline {subsection}{\numberline {4.5.3}Sockets}{20}
+\contentsline {chapter}{\numberline {5}Ordonnancement}{21}
+\contentsline {section}{\numberline {5.1}Probl\IeC {\`e}me}{21}
+\contentsline {section}{\numberline {5.2}Objectif}{21}
+\contentsline {section}{\numberline {5.3}Les crit\IeC {\`e}res}{21}
+\contentsline {section}{\numberline {5.4}Ordonnanceur et r\IeC {\'e}partiteur}{22}
+\contentsline {section}{\numberline {5.5}Politiques d'ordonnancement}{22}
+\contentsline {subsection}{\numberline {5.5.1}Premier arriv\IeC {\'e}, premier servi}{22}
+\contentsline {subsection}{\numberline {5.5.2}FSJ: Le plus court d'abord}{22}

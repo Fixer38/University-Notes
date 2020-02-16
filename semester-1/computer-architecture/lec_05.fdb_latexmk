@@ -1,0 +1,12 @@
+# Fdb version 3
+["pdflatex"] 1571056982 "lec_05.tex" "lec_05.pdf" "lec_05" 1571056982
+  "/etc/texmf/web2c/texmf.cnf" 1557253316 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1568658396 748525 da97ed56224caaa08657b75c10e4e037 ""
+  "lec_05.aux" 1571056903 8 a94a2480d3289e625eea47cd1b285758 ""
+  "lec_05.tex" 1571056980 5513 ae9e11e800cfbcbfcc390cdd818b912a ""
+  (generated)
+  "lec_05.log"
+  "lec_05.pdf"

@@ -1,3 +1,127 @@
 \chapter{}
 \lecture{1}{Lundi 23 Septembre 2019 8:30}{intro}
-\section{}
+\section{Structure de l'OS}
+\begin{enumerate}
+\item Sert a traduire ce que le CPU est capable de faire face à la demande de l'utilisateur.
+\item L'ordinateur est capable de faire 3 choses:
+\item Structure: Cpu (registres et compteur d'instructions), mémoire (en binaire), sortie INPUT/OUTPUT (périphériques).
+\begin{itemize}
+  \item Chercher des infos dans la mémoire -> mettre dans un registre
+  \item Faire des opérations dans un registre (Comparaisons, arithmétiques)
+  \item Renvoyer le résultat dans la mémoire ou vers INPUT/OUTPUT(sorties lentes)
+\end{itemize}
+\item Les instructions et le contenu de la mémoire sont en binaire
+\item l'OS ajoute une couche, interface de plus haut niveau entre les composants machines et l'homme ou entre les programmes et les composants
+\end{enumerate}
+
+\section{Assembleur}
+\begin{enumerate}
+\item Premier language entre le CPU et les composants
+\item Était fait en fonctions de l'architecture des CPU
+\end{enumerate}
+
+\section{Concurrency}
+\begin{enumerate}
+\item Les différents programmes doivent se protéger les uns des autres lors de l'exécution (multiutilisateur)
+\item Faire attention à la mémoire
+\item L'OS fourni cette protection et vérifie les instructions
+\end{enumerate}
+
+\section{Prompt}
+\begin{enumerate}
+\item L'autre façon d'intéragir avec l'OS sans GUI
+\item Grâce à une série de commandes (ls, dir, cd)
+\end{enumerate}
+
+\section{Fonctions principales}
+\begin{enumerate}
+\item Machine étendue
+\begin{itemize}
+  \item Machine virtuelle (exemple: librairie web scraping)
+  \item Conviviale et facile d'emploi (GUI)
+\end{itemize}
+
+\item Manageur de ressources
+\begin{itemize}
+  \item Gère les ressources, se protège lui-même.
+  \item Première instruction -> Chercher l'OS en lui-même
+  \item Partage les ressources de façon cohérente (Empêche la corruption de mémoire entre les programmes)
+\end{itemize}
+\end{enumerate}
+\subsection{Machine étendue}
+\begin{enumerate}
+\item Opération INPUT/OUPUT 
+\begin{itemize}
+  \item Création de drivers/pilotes -> Soulage l'OS (exemple: echo, retour à la ligne)
+  \item I/O lente (entrée utilisateur -> temps en microsecondes -> milliers d'instructions perdues)
+  \item Tout est transformé en binaire
+  \item Fait le lien entre l'hardware et l'OS
+\end{itemize}
+\item Manageur de ressources
+Les ressources sont utilisées par des applications et des processus d'arrière-plan.
+Il faut les partager:
+\begin{itemize}
+  \item Partage dans le temps: ordonnancement, le CPU va être utiliser à tour de rôle par les différents processus 
+  \begin{itemize}
+    \item si attente d'avoir fini -> problème: attente des autres processus.
+    \item Temps dédié en millisecondes.
+  \end{itemize}
+  \item Partage dans l'espace: Gestion de la mémoire -> Mémoire virtuelle avec la RAM et l'HDD
+  Passer de la mémoire d'un processus à l'autre = swap -> problème pour ordinateur temps réel(temps défini pour répondre à un processus). 
+  Un système de priorité entre les processus est défini dans la file d'attente
+\end{itemize}
+\end{enumerate}
+
+\section{Classement des OS}
+\begin{enumerate}
+  \item Mainframe (salle entière)
+  \item Serveur (+ petit que mainframe)
+  \item Multiprocesseurs (plusieurs CPU en parallèle)
+  \item Personnel (Ordinateurs lambdas)
+  \item De poche (portable)
+  \item Embarqués
+  \item Temps réel
+\end{enumerate}
+
+\subsection{Mainframe}
+\begin{enumerate}
+\item Machine capable de générer un nombre énorme d'I/O simultanés
+\item Nécessite un OS adapté: Unix
+\item 3 types de services:
+\begin{itemize}
+  \item Batch -> Programme interactif qui tourne tout seul en arrière-plan (backup, calculs)
+  \item Transaction processing -> Transaction = suite d'instructions qui n'a de sens que si elle est exécutée complètement (transaction bancaire) -> Incomplète -> Revenir en arrière = rollback
+  \item Timesharing -> Partage de temps entre les processus
+\end{itemize}
+\end{enumerate}
+
+\subsection{Serveur}
+\begin{enumerate}
+  \item Moins grand et puissant que les Mainframe
+  \item Multiutilisateur
+  \item Partage de ressources -> hardware et/ou software
+\end{enumerate}
+
+\subsection{Multiprocesseurs}
+\begin{enumerate}
+  \item Séparation en core et multicore
+  \item Permet aux ordinateurs de devenir de plus en plus petits
+\end{enumerate}
+
+\subsection{Personnel}
+\begin{enumerate}
+  \item Différents OS vendus avec les PC
+  \item Sont énormément plus petits que les serveurs
+\end{enumerate}
+
+\subsection{De poche}
+\begin{enumerate}
+  \item ARM pour les chips plus petites
+  \item Arriver aux téléphones
+\end{enumerate}
+
+\subsection{Embarqués}
+Micropuces, Cartes bancaires, IoT
+
+\subsection{Temps réel}
+Machine qui réagit dans un temps bas (programme qui gère les appels téléphoniques -> (carte prépayé, peu de temps pour regarder si la personne est abonnée ou non -> time slice given) number portability (garder le numéro après un changement d'opérateur)

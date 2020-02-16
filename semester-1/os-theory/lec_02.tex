@@ -1,0 +1,191 @@
+\chapter{Histoire}
+\lecture{2}{Lundi 30 Septembre 2019 8:30}{Histoire des OS}
+\section{Concepts incontournables}
+\begin{enumerate}
+  \item Les processus
+  \item L'espace addressable
+  \item Le système de fichier -> Organiser le stockage
+  \item Les appels système -> Mode utilisateur/système
+\end{enumerate}
+
+\subsection{Processus}
+\begin{enumerate}
+  \item Plusieurs programmes peuvent tournés sur la même machine en même temps en leur allouant des ressources du processeur.
+  \item 2 fois le même programme = 2 processus différents.
+  \item Daemon = programme en tâche de fond sous manière séquentiel et non pas parallèle (sauf dans le cas d'architecture multiprocesseur)
+\end{enumerate}
+
+\subsection{L'espace addressable}
+\begin{enumerate}
+  \item Les programmes ont besoin de mémoire pour s'exécuter
+  \item Elle est limitée -> utilisation du disque en tant que mémoire virtuel (plus de mémoire que ce qu'il y en a)
+  \item Grande partie du programme dans la RAM et le reste dans le disque
+  \begin{itemize}
+    \item si la mémoire RAM est remplie -> envoi de la mémoire la plus vieille dans le disque
+    \item Le swap (fait par l'OS) -> prend du temps (machine à temps réel ne peut pas swap)
+    \item besoin d'une table pour savoir où se trouve la mémoire dans le disque lié à la mémoire RAM
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Système de fichiers}
+\begin{enumerate}
+  \item La racine du disque -> root = /
+  \item APFS = système d'Apple
+  \item ext2/3/4 = Linux
+  \item NTFS, ReFS = Windows
+\end{enumerate}
+
+\subsection{Appels système}
+\begin{enumerate}
+\item Permet au système le contrôle d'accès aux ressources
+\item Mode de fonctionnement des processeurs récents:
+\begin{itemize}
+  \item Mode noyau = accès total (permissions proche de l'OS)
+  \item Mode utilisateur = accès restreint
+  \item Superviseur = permissions de l'OS
+\end{itemize}
+\item Programmes: mode utilisateur
+\begin{itemize}
+  \item Sécurité
+  \item Opération à risque -> Appel à l'OS
+\end{itemize}
+\item Undo = appel système grâce à un registre
+\end{enumerate}
+
+\section{Structure des OS}
+\begin{enumerate}
+\item Différentes manières de conception d'un OS
+\begin{itemize}
+  \item Monolithiques
+  \item En couches
+  \item A micro-noyau
+  \item Machine virtuelles
+\end{itemize}
+\end{enumerate}
+
+\subsection{Monolithiques}
+\begin{enumerate}
+\item Les plus répandus
+\item Collection de procédure appelant des routines systèmes
+\item L'ensemble de ces routines forme un exécutable le noyau = kernel (d'où les appels systèmes pour passer en mode noyau)
+\end{enumerate}
+\subsubsection{fonctionnement}
+\begin{itemize}
+  \item Envoi des paramètres (passer un paramètre à une fonction) -> print("texte") = print(paramètre)
+  \item Appel au noyau -> Envoi des paramètres vers la \textbf{stack qui contiendra l'adresse}
+  \item Analyse les paramètres 
+  \item Sélection de la routine
+  \item Exécution de la routine
+  \item Retour en mode utilisateur
+\end{itemize}
+
+\subsection{En couches}
+\begin{enumerate}
+\item Le système est construit en couches ayant chacune une fonctionne propre:
+\begin{itemize}
+  \item Allocation du processeur aux différents processus (multiprogramming)
+  \item Gestion de la mémoire
+  \item Communication processus-console d'un opérateur (multiusers) -> chaque utilisateur a sa console
+  \item Gestion des I/O
+  \item Programme des utilisateurs
+  \item Opérateur
+\end{itemize}
+\end{enumerate}
+
+\subsection{Micro-noyau}
+\begin{enumerate}
+\item Noyaux monolithiques de plus en plus volumineux
+\item Appel système courant ou rare dans le noyau
+\item Solution:
+\begin{itemize}
+\item Noyau : Contient les quelques routines courantes
+  \item Routines rares : dans des programmes systèmes -> réduit le Nb de lignes dans le noyau
+\end{itemize}
+\end{enumerate}
+
+\subsection{Machines virtuelles}
+\begin{enumerate}
+\item Plusieurs machines contenues dans une seule machine
+\item IBM 360 -> Un moniteur de machine virtuelle avec un ensemble de machines virtuelles
+\end{enumerate}
+
+\section{Historique de systèmes}
+Nouvelles intégrations -> nouvelles générations
+\subsection{1ère génération}
+\begin{enumerate}
+\item Pas d'OS
+\item 1956: I/O system
+\item 1er coprocesseur mathématique
+\item Début des supers ordinateurs
+\item Mémoire à torre de ferrite
+\item Concepteur = programmeur = utilisateur
+\item Langage machine
+\end{enumerate}
+
+\subsection{2ème génération}
+\begin{enumerate}
+  \item 1959: IBM 7090: Transistor -> moins de mécanique = moins de panne
+  \item 5 fois plus rapide
+  \item Plus fiable
+  \item Personnel dédié à chaque tâche
+  \item Premier ordinateurs personnels
+  \item Premiers OS
+  \item Programmation à niveau plus élevé (Fortran)
+  \item Toujours des périphériques en retard (mémoire perforée) -> télétype
+\end{enumerate}
+
+\subsection{3ème génération}
+Le circuit intégré -> Toujours plus petit et plus puissant (Jack Kilby et Robett Noyce)
+
+\subsection{Multiutilisateurs}
+\begin{enumerate}
+\item Compatible time sharing system -> multiutilisateur -> 3 en même temps
+\end{enumerate}
+
+\subsection{MULTIX}
+Ancêtre d'UNIX
+
+\section{UNIX}
+UNplexed Information and Computing Service -> codé en C 
+\begin{itemize}
+\item Ken Thompson
+\item Dennis Retchie
+\item Brian Kerrigan
+\end{itemize}
+\begin{enumerate}
+  \item 1970: 1ère version
+  \item 1973: Langage C -> Distribution libre
+  \item 1975: Version 6 -> Base commune
+  \item 1978: BSD -> Berkley university
+  \item 1984: System III, IV et V
+  \item 1991: Linux
+\end{enumerate}
+
+\subsection{POSIX}
+Normalisation en 1990 -> Norme POSIX = couche de base avec les mêmes paramètres et la même base.
+Passage d'un programme d'un ordi à l'autre. = Portable Operating System Interface
+
+\section{Micros}
+\begin{enumerate}
+\item Permet de passer aux ordinateurs personnels
+\item 1971 Premier microprocesseur = Intel 4004
+\item 1975 Premier ordinateur = Altair -> ne sert à rien
+\item 1976 Premier Apple (Bojniak)
+\item IBM PC: Aout 1981 -> Architecture ouverte -> Appels à des gens spécialisés pour chaque composant et utilisation de MS-DOS
+\item Premier programme -> Lotus (tableur pour la gestion)
+\item Bill Gates crée son propre OS avec Tim Paterson -> MS-DOS
+\item Compétition entre MacOS et MS-DOS
+\item 1992: Abandon d'IBM dû à la compétition
+\item Retro/Reverse Engenieering = décompilation des programmes
+\end{enumerate}
+
+\section{Windows}
+\begin{enumerate}
+\item Invention de la souris par Kerox, Bill Gates y a cru et à lancer Windows par la suite
+\item 1995: Triomphe de Windows sur MacOS
+\end{enumerate}
+Versions: 
+\begin{itemize}
+\item 3 branches principales -> Windows 1 à 3.11 -> NT2000 -> 95, 98, Me
+\item Fusion XP -> CE -> RT
+\end{itemize}
